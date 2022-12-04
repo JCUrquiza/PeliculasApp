@@ -1,9 +1,10 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { FlatList, Text, View } from 'react-native'
 import currencyFormatter from 'currency-formatter';
 import { Cast } from '../interfaces/creditsInterfaces'
 import { MovieFull } from '../interfaces/movieInterfaces'
 import Icon from 'react-native-vector-icons/Ionicons';
+import { CastItem } from './CastItem';
 
 interface Props {
     movieFull: MovieFull,
@@ -43,6 +44,26 @@ export const MovieDatails = ({ movieFull, cast }: Props) => {
                 <Text style={{ fontSize: 18 }}>
                     { currencyFormatter.format(movieFull.budget, { code: 'USD' }) }
                 </Text>
+                
+                {/* Casting */}
+                <View style={{ marginTop: 10, marginBottom: 100 }}>
+                    <Text style={{ fontSize: 23, marginTop: 10, fontWeight: 'bold', marginHorizontal: 20 }}>
+                        Actores
+                    </Text>
+
+                    <FlatList 
+                        data={cast}
+                        keyExtractor={ (item) => item.id.toString() }
+                        renderItem={ ({item}) => <CastItem actor={item} /> }
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        style={{ marginTop: 10, height: 70 }}
+                    />
+                    {/* 
+                    <CastItem actor={cast[0]} />
+                    */}
+
+                </View>
 
             </View>
         </>
