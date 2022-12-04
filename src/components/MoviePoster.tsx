@@ -1,6 +1,8 @@
 import React from 'react'
 import { Image, StyleSheet, View } from 'react-native'
 import { Movie } from '../interfaces/movieInterfaces';
+import { useNavigation } from '@react-navigation/core';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface Props {
     movie: Movie;
@@ -12,12 +14,18 @@ export const MoviePoster = ({ movie, height = 420, width = 300 }: Props) => {
 
     const uri = `https://image.tmdb.org/t/p/w500${ movie.poster_path }`;
 
+    const navigation = useNavigation();
+
     return (
-        <View
+        <TouchableOpacity
+            onPress={ () => navigation.navigate('DetailScreen', movie) }
+            activeOpacity={0.8}
             style={{
                 width,
                 height,
-                marginHorizontal: 8
+                marginHorizontal: 2,
+                paddingBottom: 20,
+                paddingHorizontal: 7
             }}
         >
             <View
@@ -28,7 +36,7 @@ export const MoviePoster = ({ movie, height = 420, width = 300 }: Props) => {
                     style={ style.image } 
                     />
             </View>
-        </View>
+        </TouchableOpacity>
     )
 
 }
